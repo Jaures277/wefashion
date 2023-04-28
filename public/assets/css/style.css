@@ -1,0 +1,13 @@
+.duplicate-row{
+    margin-top: 0px;
+    position: relative;
+    padding-left: 70px;
+    padding-top: 20px;
+}
+
+.duplicate-row .btn-remove{
+    position: absolute;
+    right: 0;
+    top: 18px;
+    font-family:fontaweomse;
+}
