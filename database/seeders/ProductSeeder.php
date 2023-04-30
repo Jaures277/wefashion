@@ -19,7 +19,7 @@ class ProductSeeder extends Seeder
             ->count(100)
             ->state(new Sequence(
                 function (Sequence $sequence) { return [
-                    'category_id' => Category::all()->random(),
+                    'categoryId' => Category::all()->random(),
                 ]; },
             ))
             ->create();

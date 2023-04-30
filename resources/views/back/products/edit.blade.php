@@ -68,7 +68,7 @@
 
                 @foreach($sizes as $size)
                     <label for="{{ $size->id }}">{{ $size->name }}</label>
-                    <input  type="checkbox" name="size_id[]" id="{{ $size->id }}" value="{{ $size->id }}" />
+                     <input @if($productSize->sizeId == $size->id) checked @endif type="checkbox" name="size_id[]" id="{{ $size->id }}" value="{{ $size->id }}" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 @endforeach
             </div>

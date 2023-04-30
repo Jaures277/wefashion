@@ -16,7 +16,6 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
-
         $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required']
@@ -28,11 +27,11 @@ class LoginController extends Controller
             ->first();
 
         if(!$model){
-            return Redirect::back()->withErrors("Email is incorrect.");
+            return Redirect::back()->withErrors("Votre email est incorrect.");
         }
 
         if (!Hash::check($request->get('password'), $model->password)) {
-            return Redirect::back()->withErrors("Password is incorrect.");
+            return Redirect::back()->withErrors("Votre mot de passe est incorrect.");
         }
 
         // Auth::guard('admin')->login($model);

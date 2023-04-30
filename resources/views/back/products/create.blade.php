@@ -1,7 +1,7 @@
 @extends('layout_back')
 @section('content')
 
-    @section('title', 'Ajouter une categorie')
+    @section('title', 'Ajouter un produit')
 
     <div class="container my-5">
         <nav aria-label="breadcrumb">
@@ -39,7 +39,7 @@
             </div>
 
             <div class="col-md-4">
-                <select class="form-control" name="category_id">
+                <select class="form-control" name="categoryId">
                     <option value="">-CATEGORIES-</option>
                     @foreach($categories as $cate)
                         <option value="{{ $cate->id }}">{{ $cate->name }}</option>
@@ -58,7 +58,7 @@
             <div class="col-md-4">
                 <select class="form-select" name="state">
                     <option selected>-SALE OR STANDART ?-</option>
-                    <option value="On Sale">On Sale</option>
+                    <option value="En solde">En solde </option>
                     <option value="Standard">Standard</option>
                 </select>
             </div>
@@ -68,7 +68,7 @@
                 @foreach($sizes as $size)
                     <label for="{{ $size->id }}">{{ $size->name }}</label>
 
-                    <input  type="checkbox" name="size_id[]" id="{{ $size->id }}" value="{{ $size->id }}" />
+                    <input  type="checkbox" name="sizeId[]" id="{{ $size->id }}" value="{{ $size->id }}" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 @endforeach
             </div>

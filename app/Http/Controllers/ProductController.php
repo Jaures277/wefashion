@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\Size;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class ProductController extends Controller
@@ -18,8 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         //On récupère tous les Products
-        //$products = Product::all();
-        $products = Product::with('categorie')->get();
+        $products = Product::with('categorie')->orderBy('id', 'DESC')->paginate(15);
         // On transmet les Products à la vue
         return view("back.products.index", compact("products"));
     }
@@ -49,10 +49,17 @@ class ProductController extends Controller
                 if( $file->getClientOriginalExtension() != 'jpg' &&  $file->getClientOriginalExtension() != 'jpeg' &&  $file->getClientOriginalExtension() != 'png' ){
                     return Redirect::back()->withErrors("error, verifier l'extention de l'image s'il vous plait.");
                 }else{
+
                     // creation de dossier de stockage de l'image et renommage de l'image
-                    $path = 'imageProduits';
                     $filename = date('YmdHi').".".$file->getClientOriginalExtension();
-                    $file->move($path, $filename);
+                    if($request->categoryId == 1){
+                        $path_femmes = 'images/femmes';
+                        $file->move($path_femmes, $filename);
+                    }elseif ($request->categoryId == 2){
+                        $path_hommes = 'images/hommes';
+                        $file->move($path_hommes, $filename);
+                    }
+
 
                     // enregistrement des donnees du produit
                     $add = new Product();
@@ -63,16 +70,16 @@ class ProductController extends Controller
                     $add->picture = $filename;
                     $add->visibility = $request->visibility;
                     $add->state = $request->state;
-                    $add->category_id = $request->category_id;
-                    //$category = Category::find($request->category_id);
-                    //$add->categorie()->associate($category);
+                    //$add->categoryId = $request->categoryId;
+                    $category = Category::find($request->categoryId);
+                    $add->categorie()->associate($category);
 
                     if($add->save() == true){
-                        $donnee = $request->size_id;
+                        $donnee = $request->sizeId;
                         for ($i = 0; $i < count($donnee); $i++) {
                             $add_prodsize = new ProductSize();
-                            $add_prodsize->product_id = $add->id;
-                            $add_prodsize->size_id = $donnee[$i];
+                            $add_prodsize->productId = $add->id;
+                            $add_prodsize->sizeId = $donnee[$i];
                             $add_prodsize->save();
                         }
 
@@ -96,7 +103,6 @@ class ProductController extends Controller
         $categories = Category::all();
         $sizes = Size::all();
         return view("back.products.edit", compact("categories", "sizes"));
-
     }
 
     /**
@@ -107,8 +113,8 @@ class ProductController extends Controller
         $categories = Category::all();
         $sizes = Size::all();
         $editProduit = Product::where('id', $id)->first();
-        return view("back.products.edit", compact("categories", "sizes", "editProduit"));
-
+        $productSize = ProductSize::where('productId', $id)->first();
+        return view("back.products.edit", compact("categories", "sizes", "editProduit", "productSize"));
     }
 
     /**
@@ -124,6 +130,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        dd('okok');
     }
 }

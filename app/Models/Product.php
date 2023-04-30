@@ -13,10 +13,24 @@ class Product extends Model
     use HasFactory;
     use SoftDeletes;
 
+    /**
+     * Association ManyToOne avec les categories
+     * Un produit a une seul categorie
+     *
+     * @return BelongsTo
+     */
+
     public function categorie(): BelongsTo
     {
-        return $this->BelongsTo(Category::class, 'category_id');
+        return $this->BelongsTo(Category::class, 'categoryId');
     }
+
+    /**
+     * Association ManyToMany avec les tailles(size)
+     * Chaque produit recevra plusieurs taille (successivement ou simultanément)
+     *
+     * @return BelongsToMany
+     */
 
     public function sizes(): BelongsToMany
     {

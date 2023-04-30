@@ -17,13 +17,13 @@ class ProductFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(),
-            'description' => $this->faker->paragraph(),
-            'price' => $this->faker->randomFloat(2, 0,50),
-            'reference' => $this->faker->word(),
-            'picture' => $this->faker->word(),
+            'name' => $this->faker->sentence(),
+            'description' => $this->faker->text(300),
+            'price' => $this->faker->randomFloat(2, 10,100),
+            'reference' => $this->faker->unique()->regexify('[A-Za-z0-9]{15}'),
+            'picture' => fake()->numberBetween(1, 10).'.jpg',
             'visibility' => $this->faker->randomElement(['Publie','Non Publie']),
-            'state' => $this->faker->randomElement(['On Sale','Standard']),
+            'state' => $this->faker->randomElement(['En solde','Standard']),
         ];
     }
 }

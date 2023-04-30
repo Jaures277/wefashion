@@ -12,6 +12,13 @@ class Category extends Model
 
     protected $fillable = [ "name", "description" ];
 
+    /**
+     * Association OneToMany avec les produits
+     * Chaque type (catégorie) comporte un certain nombre de produits
+     *
+     * @return HasMany
+     */
+
     public function products(): HasMany
     {
         return $this->HasMany(Product::class);

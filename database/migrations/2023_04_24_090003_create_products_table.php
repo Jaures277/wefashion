@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('reference', 16);
             $table->text('picture');
             $table->enum('visibility', ['Publie', 'Non Publie']);
-            $table->enum('state', ['On Sale', 'Standard']);
+            $table->enum('state', ['En solde', 'Standard']);
 
-            $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->unsignedBigInteger('categoryId');
+            $table->foreign('categoryId')->references('id')->on('categories');
 
             $table->softDeletes();
             $table->timestamps();

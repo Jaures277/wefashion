@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('product_sizes', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->unsignedBigInteger('productId');
+            $table->foreign('productId')->references('id')->on('products');
 
-            $table->unsignedBigInteger('size_id');
-            $table->foreign('size_id')->references('id')->on('sizes');
+            $table->unsignedBigInteger('sizeId');
+            $table->foreign('sizeId')->references('id')->on('sizes');
 
-            $table->double('quantity')->default(1);
+            $table->integer('quantity')->default(1);
 
             $table->timestamps();
         });

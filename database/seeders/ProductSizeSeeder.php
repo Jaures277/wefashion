@@ -20,9 +20,9 @@ class ProductSizeSeeder extends Seeder
             ->count(100)
             ->state(new Sequence(
                 function (Sequence $sequence) { return [
-                    'product_id' => Product::all()->random(),
-                    'size_id' => Size::all()->random(),
-                    'quantity'=> random_int(1, 10)
+                    'productId' => Product::all()->random(),
+                    'sizeId' => Size::all()->random(),
+                    'quantity'=> 1
                 ]; },
             ))
             ->create();
